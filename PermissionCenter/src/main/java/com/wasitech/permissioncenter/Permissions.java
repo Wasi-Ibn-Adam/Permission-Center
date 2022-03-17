@@ -14,7 +14,6 @@ import androidx.core.app.ActivityCompat;
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.SEND_SMS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Permissions {
     public static final int R_STORAGE = 100;
@@ -36,7 +35,7 @@ public class Permissions {
             try {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
                 intent.addCategory("android.intent.category.DEFAULT");
-                intent.setData(Uri.parse(String.format("package:%s",getApplicationContext().getPackageName())));
+                intent.setData(Uri.parse(String.format("package:%s",context.getApplicationContext().getPackageName())));
                 context.startActivityForResult(intent, code);
             } catch (Exception e) {
                 Intent intent = new Intent();

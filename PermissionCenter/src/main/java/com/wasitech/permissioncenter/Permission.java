@@ -11,8 +11,6 @@ import android.provider.Settings;
 
 import androidx.core.app.ActivityCompat;
 
-import com.wasitech.basics.app.ProcessApp;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -76,13 +74,13 @@ public abstract class Permission {
     public void onResult(int requestCode) {
         switch (requestCode) {
             case Permission.CODE_IGNORE:{break;}
-            case com.wasitech.permission.PermissionGroup.FLASH:
+            case PermissionGroup.FLASH:
             case CODE_CAMERA: {
                 checkOne(ac, Manifest.permission.CAMERA, requestCode);
                 break;
             }
-            case com.wasitech.permission.PermissionGroup.CONTACT_SHOW:
-            case com.wasitech.permission.PermissionGroup.CONTACT_DIAL:
+            case PermissionGroup.CONTACT_SHOW:
+            case PermissionGroup.CONTACT_DIAL:
             case CODE_CONTACT: {
                 checkOne(ac, Manifest.permission.WRITE_CONTACTS, requestCode);
                 break;
@@ -91,7 +89,7 @@ public abstract class Permission {
                 checkOne(ac, Manifest.permission.ACCESS_FINE_LOCATION, requestCode);
                 break;
             }
-            case com.wasitech.permission.PermissionGroup.COM_HEAD:
+            case PermissionGroup.COM_HEAD:
             case CODE_MICROPHONE: {
                 checkOne(ac, Manifest.permission.RECORD_AUDIO, requestCode);
                 break;
@@ -108,11 +106,11 @@ public abstract class Permission {
                 checkOne(ac, Manifest.permission.SEND_SMS, requestCode);
                 break;
             }
-            case com.wasitech.permission.PermissionGroup.MUSIC_FIND:
-            case com.wasitech.permission.PermissionGroup.MUSIC_PLAY:
-            case com.wasitech.permission.PermissionGroup.MUSIC_SHOW:
-            case com.wasitech.permission.PermissionGroup.PIC_SHOW:
-            case com.wasitech.permission.PermissionGroup.VIDEO_SHOW:
+            case PermissionGroup.MUSIC_FIND:
+            case PermissionGroup.MUSIC_PLAY:
+            case PermissionGroup.MUSIC_SHOW:
+            case PermissionGroup.PIC_SHOW:
+            case PermissionGroup.VIDEO_SHOW:
             case CODE_STORAGE: {
                 checkOne(ac, Manifest.permission.WRITE_EXTERNAL_STORAGE, requestCode);
                 break;
@@ -273,14 +271,17 @@ public abstract class Permission {
 
     }
 
-    protected static void setShouldShowStatus(String permission, int set) {
-        ProcessApp.getPref().edit().putInt(permission, set).apply();
+    protected void setShouldShowStatus(String permission, int set) {
+        ac.getSharedPreferences(ac.getPackageName(),Context.MODE_PRIVATE)
+                .edit().putInt(permission, set).apply();
     }
-    protected static boolean isRationaleStatus(String permission) {
-        return (ProcessApp.getPref().getInt(permission, -1)!=-1);
+    protected boolean isRationaleStatus(String permission) {
+        return (ac.getSharedPreferences(ac.getPackageName(),Context.MODE_PRIVATE)
+                .getInt(permission, -1)!=-1);
     }
-    protected static boolean getRationaleStatus(String permission) {
-        return (ProcessApp.getPref().getInt(permission, 1)==1);
+    protected boolean getRationaleStatus(String permission) {
+        return (ac.getSharedPreferences(ac.getPackageName(),Context.MODE_PRIVATE)
+                .getInt(permission, 1)==1);
     }
 
     /*
@@ -345,32 +346,32 @@ public abstract class Permission {
 
         public static String[] permissionList(int code){
             switch (code){
-                case com.wasitech.permission.PermissionGroup.AUD_HEAD:{return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO};}
-                case com.wasitech.permission.PermissionGroup.BACKGROUND:
+                case PermissionGroup.AUD_HEAD:{return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO};}
+                case PermissionGroup.BACKGROUND:
                 case Permission.CODE_MICROPHONE:
-                case com.wasitech.permission.PermissionGroup.COM_HEAD: {return new String[]{Manifest.permission.RECORD_AUDIO};}
-                case com.wasitech.permission.PermissionGroup.TAKE_PIC:
-                case com.wasitech.permission.PermissionGroup.CAM_HEAD: {return new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};}
+                case PermissionGroup.COM_HEAD: {return new String[]{Manifest.permission.RECORD_AUDIO};}
+                case PermissionGroup.TAKE_PIC:
+                case PermissionGroup.CAM_HEAD: {return new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};}
                 case Permission.CODE_CALENDER:{return new String[]{Manifest.permission.READ_CALENDAR,Manifest.permission.WRITE_CALENDAR};}
-                case com.wasitech.permission.PermissionGroup.CODE_CONTACT:
-                case com.wasitech.permission.PermissionGroup.CONTACT_DIAL:
-                case com.wasitech.permission.PermissionGroup.CONTACT_GET:
-                case com.wasitech.permission.PermissionGroup.CONTACT_SHOW: {return new String[]{Manifest.permission.WRITE_CONTACTS,Manifest.permission.READ_CONTACTS};}
+                case PermissionGroup.CODE_CONTACT:
+                case PermissionGroup.CONTACT_DIAL:
+                case PermissionGroup.CONTACT_GET:
+                case PermissionGroup.CONTACT_SHOW: {return new String[]{Manifest.permission.WRITE_CONTACTS,Manifest.permission.READ_CONTACTS};}
                 case Permission.CODE_CAMERA:
-                case com.wasitech.permission.PermissionGroup.FLASH:{ return new String[]{Manifest.permission.CAMERA};}
-                case com.wasitech.permission.PermissionGroup.MUSIC_FIND:
-                case com.wasitech.permission.PermissionGroup.MUSIC_PLAY:
-                case com.wasitech.permission.PermissionGroup.MUSIC_SHOW:
-                case com.wasitech.permission.PermissionGroup.PIC_SHOW:
-                case com.wasitech.permission.PermissionGroup.VIDEO_SHOW:
+                case PermissionGroup.FLASH:{ return new String[]{Manifest.permission.CAMERA};}
+                case PermissionGroup.MUSIC_FIND:
+                case PermissionGroup.MUSIC_PLAY:
+                case PermissionGroup.MUSIC_SHOW:
+                case PermissionGroup.PIC_SHOW:
+                case PermissionGroup.VIDEO_SHOW:
                 case Permission.CODE_STORAGE: { return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};}
                 case Permission.CODE_LOCATION: { return new String[]{Manifest.permission.ACCESS_FINE_LOCATION};}
                 case Permission.CODE_PHONE: { return new String[]{Manifest.permission.CALL_PHONE};}
                 case Permission.CODE_SENSORS: { return new String[]{Manifest.permission.BODY_SENSORS};}
-                case com.wasitech.permission.PermissionGroup.SMS_SEND:
+                case PermissionGroup.SMS_SEND:
                 case Permission.CODE_SMS: { return new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS};}
                 case Permission.CODE_VPN: { return new String[]{Manifest.permission.BIND_VPN_SERVICE};}
-                case com.wasitech.permission.PermissionGroup.FIND_PHONE:{return new String[]{Manifest.permission.RECORD_AUDIO,Manifest.permission.CAMERA};}
+                case PermissionGroup.FIND_PHONE:{return new String[]{Manifest.permission.RECORD_AUDIO,Manifest.permission.CAMERA};}
                 default:{return new String[]{};}
             }
         }
