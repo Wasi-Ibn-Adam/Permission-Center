@@ -29,7 +29,10 @@ public abstract class CustomGroupedPermission extends GroupPermission{
             case Params.AUDIO_RECORDING_APP:{ multiPermissionCheck(ac, Params.AppPermission.permissionList(Params.AUDIO_RECORDING_APP),requestCode);break;}
             case Params.SMS_APP:{ multiPermissionCheck(ac, Params.AppPermission.permissionList(Params.SMS_APP), Params.SMS_APP);break;}
         }
+
     }
+
+
 
     public class CustomRequest{
         /**
@@ -41,6 +44,9 @@ public abstract class CustomGroupedPermission extends GroupPermission{
 
         public void audioRecordingApp(int code){
             request(Params.AppPermission.permissionList(Params.AUDIO_RECORDING_APP),code);
+        }
+        public void audioRecordingApp(){
+            request(Params.AppPermission.permissionList(Params.AUDIO_RECORDING_APP),Params.AUDIO_RECORDING_APP);
         }
         public void audioListenApp(int code){
             request(Params.AppPermission.permissionList(Params.AUDIO_LISTEN_APP),code);
@@ -65,6 +71,30 @@ public abstract class CustomGroupedPermission extends GroupPermission{
         }
         public void smsApp(int code){
             request(Params.AppPermission.permissionList(Params.SMS_APP),code);
+        }
+        public void audioListenApp(){
+            request(Params.AppPermission.permissionList(Params.AUDIO_LISTEN_APP),Params.AUDIO_LISTEN_APP);
+        }
+        public void cameraApp(){
+            request(Params.AppPermission.permissionList(Params.CAMERA_APP),Params.CAMERA_APP);
+        }
+        public void contactApp(){
+            request(Params.AppPermission.permissionList(Params.CONTACT_APP),Params.CONTACT_APP);
+        }
+        public void galleryApp(){
+            request(Params.AppPermission.permissionList(Params.GALLERY_APP),Params.GALLERY_APP);
+        }
+        public void musicPlayerApp(){
+            request(Params.AppPermission.permissionList(Params.MUSIC_PLAYER_APP),Params.MUSIC_PLAYER_APP);
+        }
+        public void flashApp(){
+            request(Params.AppPermission.permissionList(Params.FLASH_APP),Params.FLASH_APP);
+        }
+        public void phoneApp(){
+            request(Params.AppPermission.permissionList(Params.PHONE_APP),Params.PHONE_APP);
+        }
+        public void smsApp(){
+            request(Params.AppPermission.permissionList(Params.SMS_APP),Params.SMS_APP);
         }
     }
 
