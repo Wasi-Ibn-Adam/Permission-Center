@@ -136,6 +136,17 @@ public class Params {
             }
             return permissionLine(list);
         }
+        public static String whichNotGranted(Context c, ArrayList<String> permissions) {
+            ArrayList<String> list = new ArrayList<>();
+            for (String per : permissions) {
+                if (!isPermissionGranted(c, per)) {
+                    String name = getPermissionName(per);
+                    if (!list.contains(name))
+                        list.add(name);
+                }
+            }
+            return permissionLine(list);
+        }
 
         private static String getPermissionName(String per) {
             switch (per) {

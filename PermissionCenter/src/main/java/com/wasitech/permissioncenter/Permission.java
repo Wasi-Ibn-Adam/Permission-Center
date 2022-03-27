@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
  * All Critical Permission sooner will be handled by
  * this well maintained Assist permission Class
  */
+
 public abstract class Permission {
     public static final int CODE_IGNORE = 666;
     public static final int CODE_SINGLE_CAMERA = 101;
